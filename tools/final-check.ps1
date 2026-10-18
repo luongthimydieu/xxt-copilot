@@ -44,9 +44,12 @@ $manifestNode = & $node -e "try{const fs=require('fs');const m=JSON.parse(fs.rea
 $manifestResult = (($manifestNode -join '').Trim())
 Add-CheckResult ($manifestResult -eq 'OK') "manifest.json parses as MV3 ($manifestResult)"
 
-# 2b. required icons
+# 2b. required icons + locales
 foreach ($icon in @('icons/icon16.png', 'icons/icon32.png', 'icons/icon48.png', 'icons/icon128.png')) {
   Add-CheckResult (Test-Path (Join-Path $root $icon)) "icon exists: $icon"
+}
+foreach ($locale in @('_locales/zh_CN/messages.json', '_locales/en/messages.json')) {
+  Add-CheckResult (Test-Path (Join-Path $root $locale)) "locale exists: $locale"
 }
 
 # 3. headless browser offline tests
@@ -152,13 +155,13 @@ if ($browser) {
 }
 
 # 5. build normal zip + clean store zip
-& (Join-Path $root 'tools\package.ps1') -Version '0.1.4'
-$zip = Join-Path $root 'dist\xxt-copilot-0.1.4.zip'
-Add-CheckResult (Test-Path $zip) 'dist/xxt-copilot-0.1.4.zip generated'
+& (Join-Path $root 'tools\package.ps1') -Version '0.1.5'
+$zip = Join-Path $root 'dist\xxt-copilot-0.1.5.zip'
+Add-CheckResult (Test-Path $zip) 'dist/xxt-copilot-0.1.5.zip generated'
 
-& (Join-Path $root 'tools\package-store.ps1') -Version '0.1.4'
-$storeZip = Join-Path $root 'dist\store\xxt-copilot-0.1.4-store.zip'
-Add-CheckResult (Test-Path $storeZip) 'dist/store/xxt-copilot-0.1.4-store.zip generated'
+& (Join-Path $root 'tools\package-store.ps1') -Version '0.1.5'
+$storeZip = Join-Path $root 'dist\store\xxt-copilot-0.1.5-store.zip'
+Add-CheckResult (Test-Path $storeZip) 'dist/store/xxt-copilot-0.1.5-store.zip generated'
 if (Test-Path $zip) {
   Add-Type -AssemblyName System.IO.Compression.FileSystem
   $archive = [System.IO.Compression.ZipFile]::OpenRead($zip)
@@ -180,6 +183,8 @@ if (Test-Path $storeZip) {
     $storeNames = $storeArchive.Entries | ForEach-Object { $_.FullName -replace '\\', '/' }
     Add-CheckResult ($storeNames -contains 'manifest.json') 'store zip root contains manifest.json'
     Add-CheckResult (($storeNames | Where-Object { $_ -like 'icons/icon128.png' }).Count -eq 1) 'store zip contains icons/icon128.png'
+    Add-CheckResult (($storeNames | Where-Object { $_ -like '_locales/zh_CN/messages.json' }).Count -eq 1) 'store zip contains zh_CN locale'
+    Add-CheckResult (($storeNames | Where-Object { $_ -like '_locales/en/messages.json' }).Count -eq 1) 'store zip contains en locale'
     Add-CheckResult (-not ($storeNames | Where-Object { $_ -like 'tools/*' -or $_ -like 'docs/*' -or $_ -like 'store-assets/*' })) 'store zip excludes tools/docs/store-assets'
     Add-CheckResult (-not ($storeNames | Where-Object { $_ -like '*xxt-snapshot*' -or $_ -like '*fixtures*' })) 'store zip excludes snapshots/fixtures'
   } finally {

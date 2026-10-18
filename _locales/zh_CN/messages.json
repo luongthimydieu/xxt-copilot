@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "XXT Copilot - 学习通题目采集器"
+  },
+  "extensionDescription": {
+    "message": "只读整理学习通课程中已可见的题目与解析，按章节导出复习资料。不自动答题、不提交。"
+  },
+  "actionTitle": {
+    "message": "打开 XXT Copilot 控制台"
+  }
+}

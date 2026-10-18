@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "XXT Copilot - Course Question Organizer"
+  },
+  "extensionDescription": {
+    "message": "Read-only organizer for course questions and explanations already visible in Chaoxing/Xuexitong; exports by chapter. No auto-answering or submission."
+  },
+  "actionTitle": {
+    "message": "Open XXT Copilot dashboard"
+  }
+}

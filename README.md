@@ -303,7 +303,10 @@ dashboard 需要在一个**已打开的学习通课程标签页**上工作。请
 
 ## 更新记录
 
-- **v0.1.4**（当前）
+- **v0.1.5**（当前）
+  - 增加 `_locales/zh_CN` 与 `_locales/en` 国际化清单：Edge/Chrome 商店列表可正确识别中文（简体）与英语，中文用户默认看到中文名称与简介；
+  - 商店包与普通包均包含 `_locales`；功能无变化。
+- **v0.1.4**
   - 新增扩展图标（16/32/48/128）与商店素材（logo 300×300、促销图 440×280 / 1400×560）；
   - 新增 [发布指南](docs/PUBLISH.md)、[隐私政策](PRIVACY.md)（含可托管的 [HTML 版](docs/privacy-policy.html)）；
   - 新增 `tools/package-store.ps1`：生成只含运行文件的商店上传包（自动排除 tools/docs/fixtures）；

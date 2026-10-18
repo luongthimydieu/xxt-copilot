@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "XXT Copilot - 学习通题目采集器",
+  "default_locale": "zh_CN",
+  "name": "__MSG_extensionName__",
   "short_name": "XXT Copilot",
-  "version": "0.1.4",
-  "description": "只读整理学习通课程中已可见的题目与解析，按章节导出复习资料。不自动答题、不提交。",
+  "version": "0.1.5",
+  "description": "__MSG_extensionDescription__",
   "minimum_chrome_version": "114",
   "icons": {
     "16": "icons/icon16.png",
@@ -23,7 +24,7 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "打开 XXT Copilot 控制台",
+    "default_title": "__MSG_actionTitle__",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",

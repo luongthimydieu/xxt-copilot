@@ -2,7 +2,7 @@
 # Produces a zip whose root contains manifest.json, so users can unzip and
 # "Load unpacked" the extracted folder.
 param(
-  [string]$Version = '0.1.4'
+  [string]$Version = '0.1.5'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -23,6 +23,7 @@ $items = @(
   'content',
   'dashboard',
   'icons',
+  '_locales',
   'README.md',
   'INSTALL.md',
   'docs'

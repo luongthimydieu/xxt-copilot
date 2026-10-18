@@ -6,7 +6,7 @@
 #   pwsh -File tools/package-store.ps1 -Version 0.1.4
 
 param(
-  [string]$Version = '0.1.4'
+  [string]$Version = '0.1.5'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -14,7 +14,7 @@ $root = Split-Path -Parent $PSScriptRoot
 $dist = Join-Path $root 'dist\store'
 $zip = Join-Path $dist "xxt-copilot-$Version-store.zip"
 
-$required = @('manifest.json', 'background.js', 'content', 'dashboard', 'icons')
+$required = @('manifest.json', 'background.js', 'content', 'dashboard', 'icons', '_locales')
 $missing = $required | Where-Object { -not (Test-Path (Join-Path $root $_)) }
 if ($missing.Count -gt 0) {
   throw ("missing extension files: " + ($missing -join ', '))
@@ -28,7 +28,8 @@ $items = @(
   'background.js',
   'content',
   'dashboard',
-  'icons'
+  'icons',
+  '_locales'
 ) | ForEach-Object { Join-Path $root $_ }
 
 Compress-Archive -Path $items -DestinationPath $zip -CompressionLevel Optimal

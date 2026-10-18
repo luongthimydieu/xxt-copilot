@@ -67,8 +67,8 @@ Chrome Web Store 的[计划政策](https://developer.chrome.com/docs/webstore/pr
 ### 生成干净的商店包
 
 ```powershell
-pwsh -File tools/package-store.ps1 -Version 0.1.4
-# 输出：dist/store/xxt-copilot-0.1.4-store.zip
+pwsh -File tools/package-store.ps1 -Version 0.1.5
+# 输出：dist/store/xxt-copilot-0.1.5-store.zip
 ```
 
 上传前确认 zip **根目录直接是 manifest.json**，且**不包含** `tools/`、`docs/`、`store-assets/`、任何 `xxt-snapshot-*.json`。
@@ -86,7 +86,7 @@ pwsh -File tools/package-store.ps1 -Version 0.1.4
 
 2. **创建新扩展并上传包**
    - 合作伙伴中心 → Edge → “创建新扩展”；
-   - 上传 `dist/store/xxt-copilot-0.1.4-store.zip`；
+   - 上传 `dist/store/xxt-copilot-0.1.5-store.zip`；
    - 等待包校验通过（若报错，多半是 manifest/图标/字段问题）。
 
 3. **可用性（Availability）**
@@ -112,6 +112,10 @@ pwsh -File tools/package-store.ps1 -Version 0.1.4
    - **隐私政策 URL**：第 1 节托管好的 URL。
 
 6. **Microsoft Store 一览（每种语言）**
+
+   > 语言列表来自扩展包里的 `_locales/`：当前包已内置 `zh_CN`（默认）与 `en`，上传后会识别出「中文（简体）」和「英语（美国）」。如果只看到「英语（美国）」，说明上传的还是旧包（v0.1.4 之前没有 `_locales`），请重新上传 v0.1.5 的商店包。
+   > 每种语言都需要填写描述并上传扩展徽标；至少完成一种语言后才能发布，另一种语言可以之后补或移除。
+
    - 扩展名称、简短说明（来自 manifest，**改 manifest 后需重新上传包**）、详细说明（≥250 字符，见第 4 节）；
    - 上传 **扩展徽标 300×300**；
    - 可选上传 440×280 小促销图、1400×560 大促销图；
