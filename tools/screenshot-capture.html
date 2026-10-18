@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>XXT Copilot screenshot capture</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 1280px;
+      height: 800px;
+      overflow: hidden;
+      background: #0f1117;
+    }
+    iframe {
+      display: block;
+      width: 1280px;
+      height: 800px;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="frame" src="../dashboard/dashboard.html?demo=1"></iframe>
+  <script>
+    (async function () {
+      'use strict';
+      var params = new URLSearchParams(location.search);
+      var step = params.get('step') || '1';
+      var frame = document.getElementById('frame');
+      var sleep = function (ms) { return new Promise(function (resolve) { setTimeout(resolve, ms); }); };
+
+      function waitForFrame() {
+        return new Promise(function (resolve) {
+          var timer = setInterval(function () {
+            try {
+              if (frame.contentDocument && frame.contentDocument.querySelector('#btn-scan')) {
+                clearInterval(timer);
+                resolve();
+              }
+            } catch (e) {
+              /* iframe not ready */
+            }
+          }, 50);
+        });
+      }
+
+      await waitForFrame();
+      var doc = frame.contentDocument;
+      var win = frame.contentWindow;
+
+      function click(selector) {
+        var el = doc.querySelector(selector);
+        if (el) el.click();
+      }
+
+      // 截图时隐藏“演示模式”横幅，让界面更接近正常使用状态。
+      var demoBanner = doc.querySelector('#demo-banner');
+      if (demoBanner) demoBanner.style.display = 'none';
+
+      click('#btn-scan');
+      await sleep(1200);
+
+      if (step !== '1') {
+        click('#btn-start');
+        await sleep(6800);
+      }
+
+      var targetSelector = step === '1' ? '#card-scan' : (step === '2' ? '#card-run' : '#card-results');
+      var target = doc.querySelector(targetSelector);
+      if (target) {
+        var top = target.getBoundingClientRect().top + (win.scrollY || 0) - 12;
+        win.scrollTo(0, Math.max(0, top));
+      }
+
+      // 清掉转瞬即逝的 toast，避免遮住界面。
+      Array.prototype.forEach.call(doc.querySelectorAll('.toast'), function (node) { node.remove(); });
+    })();
+  </script>
+</body>
+</html>

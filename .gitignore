@@ -18,6 +18,9 @@ xxt-snapshot-*.json
 .env
 node_modules/
 
+# 截图生成的原始捕获文件（由 tools/make-chrome-store-assets.py 生成最终图）
+tools/_screenshots/
+
 # 操作系统
 Thumbs.db
 .DS_Store

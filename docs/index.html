@@ -3,64 +3,262 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>XXT Copilot 隐私政策 / Privacy Policy</title>
-  <style>
-    :root { color-scheme: light dark; }
-    body { max-width: 860px; margin: 0 auto; padding: 32px 20px 64px; font: 16px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; }
-    h1 { font-size: 26px; margin-bottom: 4px; }
-    h2 { font-size: 19px; margin-top: 32px; }
-    .meta { color: #888; font-size: 14px; }
-    code { background: rgba(127,127,127,.14); padding: 1px 5px; border-radius: 4px; }
-    hr { border: 0; border-top: 1px solid rgba(127,127,127,.25); margin: 32px 0; }
-    @media (prefers-color-scheme: dark) { body { background: #17171f; color: #e8e8ef; } }
-  </style>
+  <title>XXT Copilot —— 学习通题目只读整理工具</title>
+  <meta name="description" content="XXT Copilot 是一个只读的课程题目整理扩展：把学习通（超星/泛雅）课程中已可见的题目与解析按章节整理，导出 Markdown/JSON/CSV/打印版。不自动答题、不自动提交，数据只在本机处理。">
+  <meta name="theme-color" content="#0b0d12">
+  <link rel="canonical" href="https://jinnn.xyz/">
+  <link rel="icon" type="image/png" href="assets/logo-128.png">
+  <link rel="stylesheet" href="assets/site.css">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="XXT Copilot —— 学习通题目只读整理工具">
+  <meta property="og:description" content="只读采集 · 按章节整理 · 本地校对导出。不自动答题，不自动提交，数据不上传。">
+  <meta property="og:url" content="https://jinnn.xyz/">
+  <meta property="og:image" content="https://jinnn.xyz/assets/og-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
-  <h1>XXT Copilot 隐私政策 / Privacy Policy</h1>
-  <p class="meta">生效日期：2026-10-18 · 开发者：jinnn · 联系邮箱：wangzhiwen1224@126.com</p>
 
-  <h2>1. 这个扩展是什么</h2>
-  <p>XXT Copilot（以下简称“本扩展”）是一个运行在 Microsoft Edge / Chromium 浏览器中的扩展。它的用途是：在用户<strong>已经正常登录</strong>的学习通（超星/泛雅）课程页面中，<strong>只读</strong>整理用户自己有权访问的章节测验、作业题目与页面已展示的解析，并导出为用户本地的复习资料。</p>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="./">
+      <img src="assets/logo-128.png" alt="XXT Copilot">
+      <span>XXT Copilot<small>学习通题目只读整理</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">功能</a>
+      <a href="#screenshots">截图</a>
+      <a href="#download">下载</a>
+      <a href="#faq">FAQ</a>
+      <a href="privacy-policy.html">隐私</a>
+      <a class="nav-cta" href="https://microsoftedge.microsoft.com/addons/detail/afapjlkkkkkodlmamfeknfhnlkjaenih" target="_blank" rel="noopener">获取扩展</a>
+    </div>
+  </div>
+</nav>
 
-  <h2>2. 我们处理哪些数据</h2>
-  <p>本扩展在用户浏览器本地处理以下数据，<strong>不会上传到任何服务器</strong>：用户主动操作时当前学习通页面及其同源 iframe 中的课程名称、章节名称、题目、选项、页面已展示的答案/解析、知识点；用户为排障主动导出的“页面存档”；用户在本扩展控制台中的设置（请求间隔、超时、重试次数等）。</p>
-  <p>本扩展<strong>不收集</strong>：账号密码、Cookies、通讯录、位置、浏览历史、剪贴板内容、支付信息。</p>
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill"><span class="dot"></span> 已在 Microsoft Edge 加载项商店上架</span>
+      <h1>把学习通里<span class="grad">已能看到的题目</span><br>整理成你的复习资料</h1>
+      <p class="lead">只读采集 · 按章节整理 · 本地校对导出。不自动答题，不自动提交，页面内容只在本机处理，不上传任何服务器。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://microsoftedge.microsoft.com/addons/detail/afapjlkkkkkodlmamfeknfhnlkjaenih" target="_blank" rel="noopener">从 Edge 商店安装 →</a>
+        <a class="btn" href="https://github.com/luongthimydieu/xxt-copilot/releases/latest" target="_blank" rel="noopener">GitHub 下载</a>
+      </div>
+      <p class="hero-note">当前版本 <b>v0.1.5</b> · 免费 · 开源可查 · 支持 Manifest V3</p>
+    </div>
+    <div class="hero-art">
+      <div class="shot-frame">
+        <img src="assets/screenshot-3-results-1280x800.png" alt="XXT Copilot 题目校对表格界面" width="1280" height="800">
+      </div>
+    </div>
+  </div>
+  <div class="wrap trust">
+    <div><b>🔒 本地处理</b>数据只在你电脑上</div>
+    <div><b>🚫 不自动提交</b>不答题、不交卷、不改数据</div>
+    <div><b>🧩 Manifest V3</b>无远程代码、无 CDN</div>
+    <div><b>📦 开源可查</b>源码在 GitHub 公开</div>
+  </div>
+</header>
 
-  <h2>3. 数据存储在哪里</h2>
-  <ul>
-    <li>采集结果保存在<strong>当前页面的内存</strong>中，刷新页面或关闭标签页即清空；</li>
-    <li>设置保存在浏览器本地存储（<code>chrome.storage.local</code>），卸载扩展或清除扩展数据后删除；</li>
-    <li>用户主动导出的文件由浏览器下载到用户本机默认下载目录，完全由用户自行保管。</li>
-  </ul>
+<section id="screenshots">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Screenshots</div>
+      <h2>一个控制台，完成扫描、校对与导出</h2>
+      <p>从课程目录到复习资料，全程串行、限速、可暂停；失败任务会记录原因，不再静默漏题。</p>
+    </div>
+    <div class="shots">
+      <div class="shot">
+        <img src="assets/screenshot-1-catalog-1280x800.png" alt="扫描课程目录并勾选章节" loading="lazy" width="1280" height="800">
+        <p><b>目录扫描</b>按章勾选，只采集你需要的范围</p>
+      </div>
+      <div class="shot">
+        <img src="assets/screenshot-2-progress-1280x800.png" alt="采集进度、统计卡片与运行日志" loading="lazy" width="1280" height="800">
+        <p><b>采集进度</b>统计、日志、失败原因一目了然</p>
+      </div>
+      <div class="shot">
+        <img src="assets/screenshot-3-results-1280x800.png" alt="题目校对表格，含选项与正确答案" loading="lazy" width="1280" height="800">
+        <p><b>结果校对</b>筛选、搜索、逐题校对并导出</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <h2>4. 数据是否共享给第三方</h2>
-  <p><strong>不会。</strong>本扩展没有服务器、没有账号体系、没有遥测/统计/崩溃上报、没有广告，也不会把任何数据发送给开发者或第三方。</p>
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Features</div>
+      <h2>为“整理”而设计，不为“代做”而设计</h2>
+      <p>只读取你已经能访问的页面，把整理、校对、导出这些重复劳动交给工具。</p>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <div class="ico">📚</div>
+        <h3>整门课扫描</h3>
+        <p>扫描课程目录，识别章节任务点，按章节串行采集章节测验与作业。</p>
+      </div>
+      <div class="feature">
+        <div class="ico">🎯</div>
+        <h3>按章勾选</h3>
+        <p>支持全选、取消选择或单独勾选；开始采集时只处理你选中的章节。</p>
+      </div>
+      <div class="feature">
+        <div class="ico">🛡️</div>
+        <h3>限速与暂停</h3>
+        <p>串行请求 + 随机延迟 + 超时重试；遇到验证码或登录失效会暂停提示，由你手动处理。</p>
+      </div>
+      <div class="feature">
+        <div class="ico">✍️</div>
+        <h3>在线校对</h3>
+        <p>表格里筛选、搜索、修改答案，直接编辑并自动保存，导出前完成校对。</p>
+      </div>
+      <div class="feature">
+        <div class="ico">📤</div>
+        <h3>多格式导出</h3>
+        <p>Markdown（含/不含答案）、JSON、CSV、A4 打印视图，方便背诵、备份或打印成 PDF。</p>
+      </div>
+      <div class="feature">
+        <div class="ico">🧭</div>
+        <h3>失败可诊断</h3>
+        <p>每个失败任务记录原因与源 URL；可导出页面存档，方便定位解析问题。</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <h2>5. 权限说明</h2>
-  <ul>
-    <li><code>storage</code>：保存用户的采集设置；</li>
-    <li>对 <code>*.chaoxing.com</code>、<code>*.xuexitong.com</code>、<code>*.edu.cn</code> 的网站访问权限：仅用于在用户主动打开的学习通课程页面里读取页面内容、请求同一学习通站点的数据接口，实现“整理题目”这一单一用途；</li>
-    <li>本扩展不申请 <code>downloads</code>、<code>tabs</code>、<code>scripting</code> 等与核心功能无关的权限。</li>
-  </ul>
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">How it works</div>
+      <h2>三步开始整理</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>打开课程页</h3>
+        <p>登录学习通，打开要整理的课程，进入任意章节页面并保持标签页打开。</p>
+      </div>
+      <div class="step">
+        <h3>扫描并勾选</h3>
+        <p>点击扩展图标打开控制台，扫描课程目录，按章勾选需要整理的范围。</p>
+      </div>
+      <div class="step">
+        <h3>校对并导出</h3>
+        <p>开始采集，结束后在表格里校对答案，选择 Markdown / JSON / CSV / 打印视图导出。</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <h2>6. 用户控制</h2>
-  <p>用户可以随时暂停/停止采集、关闭控制台、刷新页面清空内存数据、卸载扩展清除本地设置，并自行决定是否导出以及把导出的文件发给谁。本扩展<strong>不会</strong>自动提交作业、考试或修改平台上的任何数据。</p>
+<section>
+  <div class="wrap">
+    <div class="safety">
+      <div class="safety-grid">
+        <div>
+          <div class="eyebrow">Privacy &amp; Safety</div>
+          <h2>它只整理，不替你答题</h2>
+          <p>XXT Copilot 的定位是“只读采集 + 本地整理”。它复用你浏览器里已有的登录态，只读取你已经能访问的页面内容，然后把页面里已经展示的题目与解析整理到本地。</p>
+          <p>没有服务器、没有账号体系、没有遥测和广告；所有数据都在你的电脑上处理，导出文件只保存到你自己的下载目录。</p>
+        </div>
+        <ul class="checks">
+          <li><b>不自动答题</b>，不代替你完成任何测验</li>
+          <li><b>不自动提交</b>作业、考试或保存按钮</li>
+          <li><b>不刷课</b>、不模拟点击翻页、不修改平台数据</li>
+          <li><b>不上传</b>课程内容或个人信息</li>
+          <li><b>无远程代码</b>，所有脚本都在扩展包内</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <h2>7. 未成年人</h2>
-  <p>本扩展不是面向 13 岁以下儿童的产品。</p>
+<section id="download">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Download</div>
+      <h2>安装 XXT Copilot</h2>
+      <p>Edge 用户推荐从加载项商店一键安装；Chrome 用户或其他情况可使用 GitHub 安装包。</p>
+    </div>
+    <div class="download-grid">
+      <div class="dl">
+        <span class="tag">推荐 · 一键安装</span>
+        <h3>Microsoft Edge 加载项商店</h3>
+        <p>点击“获取”添加到 Edge，无需开启开发人员模式，自动更新。</p>
+        <a class="btn btn-primary" href="https://microsoftedge.microsoft.com/addons/detail/afapjlkkkkkodlmamfeknfhnlkjaenih" target="_blank" rel="noopener">打开 Edge 商店页面 →</a>
+      </div>
+      <div class="dl">
+        <span class="tag">备用 · 手动安装</span>
+        <h3>GitHub Releases</h3>
+        <p>下载 <code>xxt-copilot-0.1.5.zip</code>，解压后通过“加载解压缩的扩展”安装；Chrome 用户也可使用。</p>
+        <a class="btn" href="https://github.com/luongthimydieu/xxt-copilot/releases/latest" target="_blank" rel="noopener">前往 GitHub Releases →</a>
+      </div>
+    </div>
+    <div class="manual">
+      <h3>手动安装步骤</h3>
+      <ol>
+        <li>下载并解压 <code>xxt-copilot-0.1.5.zip</code> 到固定目录。</li>
+        <li>浏览器打开 <code>edge://extensions</code>（Chrome 为 <code>chrome://extensions</code>）。</li>
+        <li>打开“开发人员模式” → “加载解压缩的扩展”。</li>
+        <li>选择包含 <code>manifest.json</code> 的那一层文件夹。</li>
+        <li>打开学习通课程章节页 → 点击扩展图标 → 扫描目录 → 开始采集。</li>
+      </ol>
+    </div>
+  </div>
+</section>
 
-  <h2>8. 安全</h2>
-  <p>本扩展不使用远程代码，不加载外部脚本，符合 Manifest V3 的内容安全策略。所有代码都包含在扩展安装包中，可被审查。</p>
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">FAQ</div>
+      <h2>常见问题</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>会自动答题或提交作业吗？</summary>
+        <p>不会。扩展只读取页面和接口数据，在本地整理；从不点击提交、交卷、保存作业等按钮，也不会修改平台上的任何数据。</p>
+      </details>
+      <details>
+        <summary>为什么采集速度比较慢？</summary>
+        <p>为了降低平台压力和账号风险，扩展采用串行请求、随机延迟、超时与有限重试。整门课可能需要几分钟，建议保持默认限速。</p>
+      </details>
+      <details>
+        <summary>遇到验证码或登录失效怎么办？</summary>
+        <p>扩展会暂停并提示原因，不会强行继续。手动完成验证或重新登录学习通后，刷新课程页并在控制台点“继续”或“重新连接”。</p>
+      </details>
+      <details>
+        <summary>为什么有些题没有答案？</summary>
+        <p>平台只在部分页面或部分状态下展示官方答案；页面上没有展示的答案无法采集，会留空，由你在校对区手动补充。</p>
+      </details>
+      <details>
+        <summary>数据会被上传吗？</summary>
+        <p>不会。扩展没有服务器，没有遥测和广告；采集结果保存在页面内存，设置保存在浏览器本地存储，导出文件只写到你的默认下载目录。</p>
+      </details>
+      <details>
+        <summary>和超星/学习通官方有关系吗？</summary>
+        <p>没有。这是一个独立的个人开发工具，与超星、学习通、泛雅及各学校无隶属或合作关系。请遵守平台用户协议与学校规定，仅用于个人复习整理。</p>
+      </details>
+    </div>
+  </div>
+</section>
 
-  <h2>9. 免责声明</h2>
-  <p>本扩展与超星、学习通、泛雅及各学校<strong>无任何隶属或合作关系</strong>。用户应自行确认使用本工具符合所在学校规定与平台用户协议；因使用本工具产生的任何后果由用户自行承担。</p>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <strong style="color:var(--text)">XXT Copilot</strong>
+        <div>只读整理学习通里已可见的题目与解析</div>
+      </div>
+      <div class="foot-links">
+        <a href="privacy-policy.html">隐私政策</a>
+        <a href="https://github.com/luongthimydieu/xxt-copilot" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/luongthimydieu/xxt-copilot/issues" target="_blank" rel="noopener">反馈问题</a>
+        <a href="mailto:wangzhiwen1224@126.com">联系邮箱</a>
+      </div>
+    </div>
+    <p class="disclaimer">本网站由 XXT Copilot 开发者维护，与超星、学习通、泛雅及各学校无隶属或合作关系。扩展仅供个人学习资料整理与复习，禁止用于作弊、代刷、抄袭或违反平台协议与学校规定的行为；工具按“现状”提供，使用产生的后果由使用者自行承担。</p>
+    <p style="margin:14px 0 0">© 2026 XXT Copilot · 当前版本 v0.1.5 · <a href="https://jinnn.xyz/">jinnn.xyz</a></p>
+  </div>
+</footer>
 
-  <h2>10. 政策更新</h2>
-  <p>如本政策发生变化，会更新本页面的“生效日期”。继续使用即表示接受更新后的政策。</p>
-
-  <hr>
-
-  <h2>English summary</h2>
-  <p>XXT Copilot is a local-only browser extension that organizes course questions and explanations <strong>you already have access to</strong> in Chaoxing/Xuexitong pages into local study documents. It does <strong>not</strong> collect, transmit, sell, or share personal data; it has no server, no telemetry, no ads, and no account system. Settings are stored locally via <code>chrome.storage.local</code>; extraction results live in page memory and are cleared on refresh. Exported files are saved by your browser to your own download folder. The extension does not auto-answer, submit assignments, or modify platform data. It is not affiliated with Chaoxing, Xuexitong, Fanya, or any school. Contact: wangzhiwen1224@126.com.</p>
 </body>
 </html>
