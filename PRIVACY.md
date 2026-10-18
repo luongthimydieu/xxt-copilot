@@ -1,8 +1,8 @@
 # XXT Copilot 隐私政策 / Privacy Policy
 
 **生效日期：2026-10-18**
-**开发者：XXT Copilot 开发者（请替换为你的发布者名称）**
-**联系邮箱：请替换为你的联系邮箱**
+**开发者：jinnn**
+**联系邮箱：wangzhiwen1224@126.com**
 
 ## 中文
 
@@ -50,4 +50,4 @@ XXT Copilot（以下简称“本扩展”）是一个运行在 Microsoft Edge / 
 
 ## English (summary)
 
-XXT Copilot is a local-only browser extension that organizes course questions and explanations **you already have access to** in Chaoxing/Xuexitong pages into local study documents. It does **not** collect, transmit, sell, or share personal data; it has no server, no telemetry, no ads, and no account system. Settings are stored locally via `chrome.storage.local`; extraction results live in page memory and are cleared on refresh. Exported files are saved by your browser to your own download folder. The extension does not auto-answer, submit assignments, or modify platform data. It is not affiliated with Chaoxing, Xuexitong, Fanya, or any school. Contact: [your email].
+XXT Copilot is a local-only browser extension that organizes course questions and explanations **you already have access to** in Chaoxing/Xuexitong pages into local study documents. It does **not** collect, transmit, sell, or share personal data; it has no server, no telemetry, no ads, and no account system. Settings are stored locally via `chrome.storage.local`; extraction results live in page memory and are cleared on refresh. Exported files are saved by your browser to your own download folder. The extension does not auto-answer, submit assignments, or modify platform data. It is not affiliated with Chaoxing, Xuexitong, Fanya, or any school. Contact: wangzhiwen1224@126.com.
