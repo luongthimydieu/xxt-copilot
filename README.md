@@ -2,6 +2,8 @@
 
 > 一个运行在 Edge / Chrome 上的浏览器扩展。它把你在学习通（超星）课程中**已经能看到的**章节测验、作业题目和官方答案，采集到本地，方便你统一校对、整理成复习资料。
 
+**✅ 已上架 Microsoft Edge 加载项商店：** [XXT Copilot - 学习通题目采集器](https://microsoftedge.microsoft.com/addons/detail/afapjlkkkkkodlmamfeknfhnlkjaenih)（点击“获取”即可安装，无需开发人员模式）
+
 ---
 
 ## 项目简介与使用边界
@@ -48,10 +50,14 @@
 
 ## 下载与安装
 
-当前版本为 **v0.1.5**。请从 GitHub Releases 下载对应安装包：
+**✅ 已在 Microsoft Edge 加载项商店上架（推荐）：**  
+👉 [XXT Copilot - 学习通题目采集器](https://microsoftedge.microsoft.com/addons/detail/afapjlkkkkkodlmamfeknfhnlkjaenih)
+
+商店版与 GitHub 版功能一致。当前版本为 **v0.1.5**；如果无法访问商店，也可以从 GitHub Releases 下载：
 
 | 文件 | 用途 |
 | --- | --- |
+| **[Microsoft Edge 加载项商店](https://microsoftedge.microsoft.com/addons/detail/afapjlkkkkkodlmamfeknfhnlkjaenih)** | 一键安装（推荐） |
 | **[xxt-copilot-0.1.5.zip](https://github.com/luongthimydieu/xxt-copilot/releases/latest/download/xxt-copilot-0.1.5.zip)** | 普通安装包：解压后加载即可使用 |
 | [xxt-copilot-0.1.5-store.zip](https://github.com/luongthimydieu/xxt-copilot/releases/latest/download/xxt-copilot-0.1.5-store.zip) | Edge/Chrome 商店提交包（普通用户不需要） |
 
@@ -63,7 +69,7 @@
 4. 选择**包含 `manifest.json` 的那一层文件夹**。
 5. 打开学习通课程章节页 → 点击工具栏扩展图标 → 扫描目录 → 开始采集。
 
-详细步骤见 [INSTALL.md](INSTALL.md)。Edge 加载项商店版本正在审核中，通过后会在这里补充商店链接。
+详细步骤见 [INSTALL.md](INSTALL.md)。也可以直接在 Edge 加载项商店搜索 “XXT Copilot” 安装。Chrome 应用商店暂未提交，Chrome 用户请先使用 GitHub 安装包。
 
 ---
 
@@ -334,6 +340,7 @@ dashboard 需要在一个**已打开的学习通课程标签页**上工作。请
 ## 更新记录
 
 - **v0.1.5**（当前）
+  - **2026-10-18 已通过 Microsoft Edge 认证并上架**：[商店链接](https://microsoftedge.microsoft.com/addons/detail/afapjlkkkkkodlmamfeknfhnlkjaenih)；
   - 增加 `_locales/zh_CN` 与 `_locales/en` 国际化清单：Edge/Chrome 商店列表可正确识别中文（简体）与英语，中文用户默认看到中文名称与简介；
   - 商店包与普通包均包含 `_locales`；功能无变化。
 - **v0.1.4**
@@ -392,12 +399,12 @@ dashboard 需要在一个**已打开的学习通课程标签页**上工作。请
 | --- | --- |
 | [INSTALL.md](INSTALL.md) | Edge / Chrome 安装、更新、卸载、权限说明 |
 | [docs/PUBLISH.md](docs/PUBLISH.md) | 发布到 Edge 加载项 / Chrome 应用商店的完整步骤、政策风险、商店文案与认证说明 |
-| [PRIVACY.md](PRIVACY.md) · [HTML 版](docs/privacy-policy.html) | 隐私政策（发布到商店前需替换占位符并托管为公网 URL） |
+| [PRIVACY.md](PRIVACY.md) · [HTML 版](docs/privacy-policy.html) | 隐私政策（已托管：https://luongthimydieu.github.io/xxt-copilot/） |
 | [docs/SNAPSHOT.md](docs/SNAPSHOT.md) | 导出页面存档并反馈排障信息 |
 | [docs/QA-CHECKLIST.md](docs/QA-CHECKLIST.md) | 首次真实环境验收清单 |
 | [docs/INTERFACE.md](docs/INTERFACE.md) | 内部接口约定（开发者向） |
 
-> 准备发布时：先读 [docs/PUBLISH.md](docs/PUBLISH.md) 的风险提示 → 替换隐私政策占位符并托管 → 用 `tools/package-store.ps1` 生成商店包 → 按指南提交。**注意：`tools/fixtures/` 里是真实课程页面测试夹具，绝不能打进商店包。**
+> 扩展已上架 Microsoft Edge 加载项商店；后续更新版本时按 [docs/PUBLISH.md](docs/PUBLISH.md) 重新打包并提交认证。**注意：`tools/fixtures/` 里是真实课程页面测试夹具，绝不能打进商店包。**
 
 反馈问题时请尽量附上：所用浏览器与版本、扩展版本、课程名与章节名、预期题数与实际题数、出错时的日志，以及按 [docs/SNAPSHOT.md](docs/SNAPSHOT.md) 导出的页面存档 JSON。
 
