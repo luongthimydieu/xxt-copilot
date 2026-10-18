@@ -28,6 +28,7 @@
 
 ## 目录
 
+- [下载与安装](#下载与安装)
 - [功能列表](#功能列表)
 - [与旧油猴脚本方案的区别](#与旧油猴脚本方案的区别)
 - [架构图](#架构图)
@@ -40,6 +41,27 @@
 - [已知限制](#已知限制)
 - [后续计划](#后续计划)
 - [文档与反馈](#文档与反馈)
+
+---
+
+## 下载与安装
+
+最新版从 GitHub Releases 下载（与 Edge/Chrome 商店版本功能一致）：
+
+| 文件 | 用途 |
+| --- | --- |
+| **[xxt-copilot-0.1.5.zip](https://github.com/luongthimydieu/xxt-copilot/releases/latest/download/xxt-copilot-0.1.5.zip)** | 普通安装包：解压后加载即可使用 |
+| [xxt-copilot-0.1.5-store.zip](https://github.com/luongthimydieu/xxt-copilot/releases/latest/download/xxt-copilot-0.1.5-store.zip) | Edge/Chrome 商店提交包（普通用户不需要） |
+
+安装步骤：
+
+1. 下载并解压 `xxt-copilot-0.1.5.zip` 到固定目录；
+2. 浏览器打开 `edge://extensions`（Chrome 为 `chrome://extensions`）；
+3. 打开“开发人员模式” → “加载解压缩的扩展”；
+4. 选择**包含 `manifest.json` 的那一层文件夹**；
+5. 打开学习通课程章节页 → 点击工具栏扩展图标 → 扫描目录 → 开始采集。
+
+详细步骤见 [INSTALL.md](INSTALL.md)。Edge 加载项商店版本正在审核中，通过后会在这里补充商店链接。
 
 ---
 
