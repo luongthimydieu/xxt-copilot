@@ -4,6 +4,8 @@
 
 **✅ 已上架 Microsoft Edge 加载项商店：** [XXT Copilot - 学习通题目采集器](https://microsoftedge.microsoft.com/addons/detail/afapjlkkkkkodlmamfeknfhnlkjaenih)（点击“获取”即可安装，无需开发人员模式）
 
+[![Microsoft Edge Add-ons](https://img.shields.io/badge/Microsoft_Edge_Add--ons-Get_it-0078D7?style=for-the-badge&logo=microsoftedge&logoColor=white)](https://microsoftedge.microsoft.com/addons/detail/afapjlkkkkkodlmamfeknfhnlkjaenih)
+
 ---
 
 ## 项目简介与使用边界
