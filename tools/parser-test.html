@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>parser-test</title>
+  <style>
+    body { font: 14px/1.6 Consolas, monospace; padding: 16px; }
+    #out { white-space: pre-wrap; }
+    .pass { color: #067d17; }
+    .fail { color: #c00; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <h1>XXT Copilot 解析器测试</h1>
+  <pre id="out">RUNNING</pre>
+  <script src="../content/parsers.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      var results = [];
+      var failed = 0;
+
+      function assert(condition, message) {
+        if (condition) {
+          results.push('PASS ' + message);
+        } else {
+          failed++;
+          results.push('FAIL ' + message);
+        }
+      }
+
+      function parse(html, meta) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        return XXT.parsers.parseDocument(doc, meta || {});
+      }
+
+      try {
+        // 用例 1：截图同款已批阅判断题页
+        var case1 = parse(
+          '<div class="mark_item">' +
+            '<div class="type_tit">一、判断题（共1题）</div>' +
+            '<div class="questionLi">' +
+              '<div class="Zy_TItle"><span class="qtContent">1 【判断题】群体规范是明文规定的规章制度。</span></div>' +
+              '<div class="mark_answer">' +
+                '<div class="mark_key"><span class="colorDeep"><span class="stuAnswerContent">错</span></span></div>' +
+                '<div class="mark_key"><span class="colorGreen">正确答案：错</span></div>' +
+              '</div>' +
+              '<div class="knowledgePoint">知识点：群体规范</div>' +
+            '</div>' +
+          '</div>',
+          { chapterTitle: '群体规范', knowledgeId: '1001', workId: 'w1', sourceUrl: 'https://mooc1.chaoxing.com/mooc-ans/work/view?workId=w1' }
+        );
+        assert(case1.questions.length === 1, '用例1 解析出 1 道题（实际 ' + case1.questions.length + '）');
+        if (case1.questions[0]) {
+          var q1 = case1.questions[0];
+          assert(q1.type === 'judge', '用例1 题型为判断（实际 ' + q1.type + '）');
+          assert(q1.stem.indexOf('群体规范是明文规定的规章制度') >= 0, '用例1 题干完整（实际 ' + q1.stem + '）');
+          assert(q1.correctAnswer === '错', '用例1 正确答案为错（实际 ' + q1.correctAnswer + '）');
+          assert(q1.myAnswer === '错', '用例1 我的答案为错（实际 ' + q1.myAnswer + '）');
+          assert(q1.knowledgePoint.indexOf('群体规范') >= 0, '用例1 知识点已提取（实际 ' + q1.knowledgePoint + '）');
+        }
+
+        // 用例 2：隐藏的旧题目不应污染结果
+        var case2 = parse(
+          '<div class="mark_item">' +
+            '<div class="type_tit">一、判断题（共1题）</div>' +
+            '<div class="questionLi">' +
+              '<div class="Zy_TItle"><span class="qtContent">1 【判断题】可见的题目。</span></div>' +
+              '<div class="mark_answer"><div class="mark_key"><span class="colorGreen">正确答案：对</span></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="aiArea" style="display:none">' +
+            '<div class="newTestType">一、判断题（共2题）</div>' +
+            '<div class="TiMu"><div class="Zy_TItle"><span class="qtContent">1</span></div></div>' +
+            '<div class="TiMu"><div class="Zy_TItle"><span class="qtContent">2</span></div></div>' +
+          '</div>',
+          { chapterTitle: '隐藏页', knowledgeId: '1002', workId: 'w2' }
+        );
+        assert(case2.questions.length === 1, '用例2 只解析可见的 1 道题（实际 ' + case2.questions.length + '）');
+        assert(
+          case2.questions.every(function (q) { return q.stem !== '1' && q.stem !== '2'; }),
+          '用例2 题干不是题号 1/2'
+        );
+
+        // 用例 3：多选题
+        var case3 = parse(
+          '<div class="aiArea">' +
+            '<div class="newTestType">二、多选题（共1题）</div>' +
+            '<div class="TiMu">' +
+              '<div class="Zy_TItle"><i class="fl">1</i><span class="qtContent">下列属于正式规范的有？</span></div>' +
+              '<ul class="mark_letter">' +
+                '<li><span class="num_option" data="A">A</span><p>规章制度</p></li>' +
+                '<li><span class="num_option" data="B">B</span><p>风俗习惯</p></li>' +
+                '<li><span class="num_option" data="C">C</span><p>法律条文</p></li>' +
+              '</ul>' +
+              '<div class="mark_answer"><div class="rightAnswerContent">正确答案：AC</div></div>' +
+            '</div>' +
+          '</div>',
+          { chapterTitle: '规范', knowledgeId: '1003', workId: 'w3' }
+        );
+        assert(case3.questions.length === 1, '用例3 解析出 1 道题（实际 ' + case3.questions.length + '）');
+        if (case3.questions[0]) {
+          var q3 = case3.questions[0];
+          assert(q3.type === 'multiple', '用例3 题型为多选（实际 ' + q3.type + '）');
+          assert(q3.options.length === 3, '用例3 选项 3 个（实际 ' + q3.options.length + '）');
+          assert(q3.correctAnswer === 'AC', '用例3 答案 AC（实际 ' + q3.correctAnswer + '）');
+        }
+
+        // 用例 4：题号单独成行
+        var case4 = parse(
+          '<div class="aiArea">' +
+            '<div class="newTestType">一、单选题（共1题）</div>' +
+            '<div class="TiMu">' +
+              '<div class="Zy_TItle"><span class="qtContent">1</span></div>' +
+              '<p>以下哪个是正式规范？</p>' +
+              '<ul class="mark_letter">' +
+                '<li><span class="num_option" data="A">A</span><p>公司制度</p></li>' +
+                '<li><span class="num_option" data="B">B</span><p>打招呼</p></li>' +
+              '</ul>' +
+              '<div class="mark_answer"><div class="rightAnswerContent">正确答案：A</div></div>' +
+            '</div>' +
+          '</div>',
+          { chapterTitle: '单独题号', knowledgeId: '1004', workId: 'w4' }
+        );
+        assert(case4.questions.length === 1, '用例4 解析出 1 道题（实际 ' + case4.questions.length + '）');
+        if (case4.questions[0]) {
+          var q4 = case4.questions[0];
+          assert(q4.stem.indexOf('正式规范') >= 0, '用例4 题干来自下一行（实际 ' + q4.stem + '）');
+          assert(q4.correctAnswer === 'A', '用例4 答案 A（实际 ' + q4.correctAnswer + '）');
+        }
+        // 用例 5：课程目录页不应被解析成题目（防止“1.1 章节名 已完成”被当成题干）
+        var case5 = parse(
+          '<div class="catalog">' +
+            '<div>1.1 组织行为学概述 已完成</div>' +
+            '<div>1.2 管理者及其职能 已完成</div>' +
+            '<div>2 如何知人善用—个体心理与行为</div>' +
+            '<div>2.11 核心自我评价 已完成</div>' +
+            '<div>章节详情</div>' +
+          '</div>',
+          { chapterTitle: '课程目录', knowledgeId: '1005', workId: 'w5' }
+        );
+        assert(case5.questions.length === 0, '用例5 课程目录页解析出 0 道题（实际 ' + case5.questions.length + '）');
+      } catch (error) {
+        failed++;
+        results.push('FAIL 测试执行异常：' + (error && error.stack ? error.stack : error));
+      }
+
+      var summary = failed === 0 ? 'PASS' : 'FAILED ' + failed;
+      var out = document.getElementById('out');
+      out.textContent = summary + '\n' + results.join('\n');
+      out.className = failed === 0 ? 'pass' : 'fail';
+      document.title = failed === 0 ? 'PASS' : 'FAIL';
+    })();
+  </script>
+</body>
+</html>

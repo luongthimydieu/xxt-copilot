@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "XXT Copilot - 学习通题目采集器",
+  "short_name": "XXT Copilot",
+  "version": "0.1.4",
+  "description": "只读整理学习通课程中已可见的题目与解析，按章节导出复习资料。不自动答题、不提交。",
+  "minimum_chrome_version": "114",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "*://*.chaoxing.com/*",
+    "*://*.xuexitong.com/*",
+    "*://*.edu.cn/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "打开 XXT Copilot 控制台",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.chaoxing.com/*",
+        "*://*.xuexitong.com/*",
+        "*://*.edu.cn/*"
+      ],
+      "all_frames": true,
+      "run_at": "document_idle",
+      "js": [
+        "content/frames.js",
+        "content/net.js",
+        "content/parsers.js",
+        "content/content.js"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>dashboard-test</title>
+  <style>
+    body { font: 13px/1.5 Consolas, monospace; margin: 0; padding: 10px; }
+    iframe { width: 1400px; height: 820px; border: 1px solid #ccc; }
+    #out { white-space: pre-wrap; }
+    .pass { color: #067d17; }
+    .fail { color: #c00; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <pre id="out">RUNNING</pre>
+  <iframe id="frame" src="../dashboard/dashboard.html?demo=1"></iframe>
+  <script>
+    (function () {
+      'use strict';
+      var results = [];
+      var failed = 0;
+
+      function assert(condition, message) {
+        if (condition) results.push('PASS ' + message);
+        else { failed++; results.push('FAIL ' + message); }
+      }
+      function sleep(ms) {
+        return new Promise(function (resolve) { setTimeout(resolve, ms); });
+      }
+      function textOf(doc, id) {
+        var el = doc.getElementById(id);
+        return el ? String(el.textContent || '').trim() : '';
+      }
+
+      window.addEventListener('load', function () {
+        (async function () {
+          var frame = document.getElementById('frame');
+          var doc = frame.contentDocument;
+          var win = frame.contentWindow;
+          try {
+            await sleep(700);
+
+            // 1. demo 模式基础状态
+            var banner = doc.getElementById('demo-banner');
+            assert(!!banner && banner.hidden === false, 'demo=1 显示演示横幅');
+            assert(typeof win.XXTExport === 'object', 'export.js 已加载（window.XXTExport）');
+            ['exportMarkdown', 'exportJson', 'exportCsv', 'openPrintView', 'makeFileName'].forEach(function (name) {
+              assert(typeof win.XXTExport[name] === 'function', '导出函数存在：' + name);
+            });
+            assert(!!doc.getElementById('btn-extract-current'), '存在「提取当前页」按钮');
+
+            // 2. 扫描目录
+            doc.getElementById('btn-scan').click();
+            await sleep(900);
+            var entryRows = doc.querySelectorAll('#entries-list .entry-row');
+            assert(entryRows.length === 2, 'demo 扫描得到 2 个章节（实际 ' + entryRows.length + '）');
+            assert(textOf(doc, 'conn-pill').indexOf('演示') >= 0, '连接状态显示演示模式');
+            assert(doc.getElementById('btn-start').disabled === false, '扫描后「开始采集」可用');
+
+            // 3. 开始采集 → 完成
+            doc.getElementById('btn-start').click();
+            await sleep(6200);
+            assert(textOf(doc, 'stat-questions') === '6', 'demo 采集得到 6 题（实际 ' + textOf(doc, 'stat-questions') + '）');
+            assert(textOf(doc, 'stat-failed') === '1', 'demo 有 1 个失败任务（实际 ' + textOf(doc, 'stat-failed') + '）');
+            var bulkRows = doc.querySelectorAll('#results-tbody tr');
+            assert(bulkRows.length > 0, '批量结果表格有数据（' + bulkRows.length + ' 行）');
+            var logText = textOf(doc, 'log-list');
+            assert(logText.indexOf('采集完成') >= 0 || logText.indexOf('完成') >= 0, '日志出现完成记录');
+
+            // 4. 单页提取 → 返回批量结果
+            doc.getElementById('btn-extract-current').click();
+            await sleep(900);
+            var extractRows = doc.querySelectorAll('#results-tbody tr');
+            assert(extractRows.length === 3, '单页提取显示 3 题（实际 ' + extractRows.length + '）');
+            var modeText = textOf(doc, 'results-mode');
+            assert(modeText.indexOf('单页') >= 0, '单页模式徽标出现（' + modeText + '）');
+            assert(modeText.indexOf('timu') >= 0, '单页适配器为 timu（' + modeText + '）');
+            var showBulk = doc.getElementById('btn-show-bulk');
+            assert(!!showBulk && showBulk.hidden === false, '「返回批量结果」按钮可见');
+            if (showBulk) showBulk.click();
+            await sleep(300);
+            var backRows = doc.querySelectorAll('#results-tbody tr');
+            assert(backRows.length > 0 && backRows.length !== 3, '返回批量结果后行数恢复（' + backRows.length + ' 行）');
+
+            // 5. 筛选框存在且可用
+            assert(!!doc.getElementById('filter-type') && !!doc.getElementById('filter-chapter'), '筛选控件存在');
+            assert(!!doc.getElementById('page-info'), '分页控件存在');
+          } catch (error) {
+            failed++;
+            results.push('FAIL 测试执行异常：' + (error && error.stack ? error.stack : error));
+          }
+          var summary = failed === 0 ? 'PASS' : 'FAILED ' + failed;
+          var out = document.getElementById('out');
+          out.textContent = summary + '\n' + results.join('\n');
+          out.className = failed === 0 ? 'pass' : 'fail';
+          document.title = failed === 0 ? 'PASS' : 'FAIL';
+        })();
+      });
+    })();
+  </script>
+</body>
+</html>

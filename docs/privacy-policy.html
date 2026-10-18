@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XXT Copilot 隐私政策 / Privacy Policy</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { max-width: 860px; margin: 0 auto; padding: 32px 20px 64px; font: 16px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; }
+    h1 { font-size: 26px; margin-bottom: 4px; }
+    h2 { font-size: 19px; margin-top: 32px; }
+    .meta { color: #888; font-size: 14px; }
+    code { background: rgba(127,127,127,.14); padding: 1px 5px; border-radius: 4px; }
+    hr { border: 0; border-top: 1px solid rgba(127,127,127,.25); margin: 32px 0; }
+    @media (prefers-color-scheme: dark) { body { background: #17171f; color: #e8e8ef; } }
+  </style>
+</head>
+<body>
+  <h1>XXT Copilot 隐私政策 / Privacy Policy</h1>
+  <p class="meta">生效日期：2026-10-18 · 开发者：XXT Copilot 开发者（请替换为你的发布者名称） · 联系邮箱：请替换为你的联系邮箱</p>
+
+  <h2>1. 这个扩展是什么</h2>
+  <p>XXT Copilot（以下简称“本扩展”）是一个运行在 Microsoft Edge / Chromium 浏览器中的扩展。它的用途是：在用户<strong>已经正常登录</strong>的学习通（超星/泛雅）课程页面中，<strong>只读</strong>整理用户自己有权访问的章节测验、作业题目与页面已展示的解析，并导出为用户本地的复习资料。</p>
+
+  <h2>2. 我们处理哪些数据</h2>
+  <p>本扩展在用户浏览器本地处理以下数据，<strong>不会上传到任何服务器</strong>：用户主动操作时当前学习通页面及其同源 iframe 中的课程名称、章节名称、题目、选项、页面已展示的答案/解析、知识点；用户为排障主动导出的“页面存档”；用户在本扩展控制台中的设置（请求间隔、超时、重试次数等）。</p>
+  <p>本扩展<strong>不收集</strong>：账号密码、Cookies、通讯录、位置、浏览历史、剪贴板内容、支付信息。</p>
+
+  <h2>3. 数据存储在哪里</h2>
+  <ul>
+    <li>采集结果保存在<strong>当前页面的内存</strong>中，刷新页面或关闭标签页即清空；</li>
+    <li>设置保存在浏览器本地存储（<code>chrome.storage.local</code>），卸载扩展或清除扩展数据后删除；</li>
+    <li>用户主动导出的文件由浏览器下载到用户本机默认下载目录，完全由用户自行保管。</li>
+  </ul>
+
+  <h2>4. 数据是否共享给第三方</h2>
+  <p><strong>不会。</strong>本扩展没有服务器、没有账号体系、没有遥测/统计/崩溃上报、没有广告，也不会把任何数据发送给开发者或第三方。</p>
+
+  <h2>5. 权限说明</h2>
+  <ul>
+    <li><code>storage</code>：保存用户的采集设置；</li>
+    <li>对 <code>*.chaoxing.com</code>、<code>*.xuexitong.com</code>、<code>*.edu.cn</code> 的网站访问权限：仅用于在用户主动打开的学习通课程页面里读取页面内容、请求同一学习通站点的数据接口，实现“整理题目”这一单一用途；</li>
+    <li>本扩展不申请 <code>downloads</code>、<code>tabs</code>、<code>scripting</code> 等与核心功能无关的权限。</li>
+  </ul>
+
+  <h2>6. 用户控制</h2>
+  <p>用户可以随时暂停/停止采集、关闭控制台、刷新页面清空内存数据、卸载扩展清除本地设置，并自行决定是否导出以及把导出的文件发给谁。本扩展<strong>不会</strong>自动提交作业、考试或修改平台上的任何数据。</p>
+
+  <h2>7. 未成年人</h2>
+  <p>本扩展不是面向 13 岁以下儿童的产品。</p>
+
+  <h2>8. 安全</h2>
+  <p>本扩展不使用远程代码，不加载外部脚本，符合 Manifest V3 的内容安全策略。所有代码都包含在扩展安装包中，可被审查。</p>
+
+  <h2>9. 免责声明</h2>
+  <p>本扩展与超星、学习通、泛雅及各学校<strong>无任何隶属或合作关系</strong>。用户应自行确认使用本工具符合所在学校规定与平台用户协议；因使用本工具产生的任何后果由用户自行承担。</p>
+
+  <h2>10. 政策更新</h2>
+  <p>如本政策发生变化，会更新本页面的“生效日期”。继续使用即表示接受更新后的政策。</p>
+
+  <hr>
+
+  <h2>English summary</h2>
+  <p>XXT Copilot is a local-only browser extension that organizes course questions and explanations <strong>you already have access to</strong> in Chaoxing/Xuexitong pages into local study documents. It does <strong>not</strong> collect, transmit, sell, or share personal data; it has no server, no telemetry, no ads, and no account system. Settings are stored locally via <code>chrome.storage.local</code>; extraction results live in page memory and are cleared on refresh. Exported files are saved by your browser to your own download folder. The extension does not auto-answer, submit assignments, or modify platform data. It is not affiliated with Chaoxing, Xuexitong, Fanya, or any school. Contact: [your email].</p>
+</body>
+</html>

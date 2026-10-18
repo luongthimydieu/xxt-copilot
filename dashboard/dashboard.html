@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XXT Copilot · 控制台</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">XX</div>
+        <div class="brand-text">
+          <h1>XXT Copilot</h1>
+          <p>学习通 · 只读题目采集与校对</p>
+        </div>
+      </div>
+      <div class="topbar-status">
+        <span id="conn-pill" class="pill pill-idle" role="status">未连接</span>
+        <span id="course-name" class="course-name" title="当前课程">未连接课程</span>
+      </div>
+      <div class="topbar-actions">
+        <button type="button" class="btn" id="btn-reconnect" data-action="reconnect">重新连接</button>
+        <button type="button" class="btn" id="btn-extract-current" data-action="extract-current" title="从当前已打开的学习通页面提取题目（XXT_EXTRACT_CURRENT）">提取当前页</button>
+        <button type="button" class="btn" id="btn-settings" data-action="open-settings">设置</button>
+        <button type="button" class="btn" id="btn-snapshot" data-action="snapshot">导出页面存档</button>
+      </div>
+    </header>
+
+    <div id="demo-banner" class="banner banner-info" hidden>
+      demo 模式：当前使用内置示例数据，不会连接学习通，也不会发送任何扩展消息。
+    </div>
+    <div id="alert-banner" class="banner banner-error" hidden role="alert"></div>
+
+    <main>
+      <section id="empty-state" class="card empty-state">
+        <h2 id="empty-title">正在连接学习通页面…</h2>
+        <p id="empty-hint">正在查找当前课程标签页。请保持学习通课程章节页处于打开状态。</p>
+        <button type="button" class="btn btn-primary" data-action="reconnect">重新连接</button>
+      </section>
+
+      <section id="card-scan" class="card" hidden>
+        <div class="card-head">
+          <div>
+            <h2>扫描目录</h2>
+            <p class="card-sub" id="scan-hint">扫描课程章节目录，勾选要采集的章节后开始采集。</p>
+          </div>
+          <div class="card-tools">
+            <button type="button" class="btn btn-primary" id="btn-scan" data-action="scan">扫描课程目录</button>
+            <button type="button" class="btn btn-sm" id="btn-select-all" data-action="select-all">全选</button>
+            <button type="button" class="btn btn-sm" id="btn-select-none" data-action="select-none">取消选择</button>
+          </div>
+        </div>
+        <div class="entries" id="entries-list"></div>
+      </section>
+
+      <section id="card-run" class="card" hidden>
+        <div class="card-head">
+          <div>
+            <h2>采集控制</h2>
+            <p class="card-sub">串行请求 + 随机延迟；遇到验证码或登录失效会自动暂停，不会硬闯。</p>
+          </div>
+          <div class="card-tools">
+            <button type="button" class="btn btn-primary" id="btn-start" data-action="start">开始采集</button>
+            <button type="button" class="btn" id="btn-pause" data-action="pause">暂停</button>
+            <button type="button" class="btn" id="btn-resume" data-action="resume">继续</button>
+            <button type="button" class="btn btn-danger" id="btn-stop" data-action="stop">停止</button>
+          </div>
+        </div>
+        <div class="progress-grid">
+          <div class="progress-item">
+            <div class="progress-label"><span>章节进度</span><span id="progress-entry-text">0 / 0</span></div>
+            <div class="bar"><div class="bar-fill" id="progress-entry-bar"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label"><span>任务进度</span><span id="progress-task-text">0 / 0</span></div>
+            <div class="bar"><div class="bar-fill bar-fill-ok" id="progress-task-bar"></div></div>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-label">章节</span>
+            <strong class="stat-value" id="stat-chapters">0</strong>
+          </div>
+          <div class="stat">
+            <span class="stat-label">任务</span>
+            <strong class="stat-value" id="stat-tasks">0</strong>
+          </div>
+          <div class="stat">
+            <span class="stat-label">题目</span>
+            <strong class="stat-value" id="stat-questions">0</strong>
+          </div>
+          <div class="stat stat-failed">
+            <span class="stat-label">失败任务</span>
+            <strong class="stat-value" id="stat-failed">0</strong>
+          </div>
+        </div>
+      </section>
+
+      <div class="two-col">
+        <section id="card-logs" class="card" hidden>
+          <div class="card-head">
+            <div>
+              <h2>运行日志</h2>
+              <p class="card-sub" id="logs-meta">最多保留最近 300 条，按级别着色。</p>
+            </div>
+          </div>
+          <div class="log-list" id="log-list"></div>
+        </section>
+
+        <section id="card-tasks" class="card" hidden>
+          <div class="card-head">
+            <div>
+              <h2>任务状态</h2>
+              <p class="card-sub" id="tasks-meta">按章节显示任务数、完成情况与失败原因。</p>
+            </div>
+          </div>
+          <div class="task-list" id="task-list"></div>
+        </section>
+      </div>
+
+      <section id="card-results" class="card" hidden>
+        <div class="card-head">
+          <div>
+            <h2>结果校对 <span class="mode-badge" id="results-mode" hidden></span></h2>
+            <p class="card-sub" id="results-meta">采集完成或暂停后自动加载结果。</p>
+          </div>
+          <div class="card-tools">
+            <button type="button" class="btn btn-sm" id="btn-show-bulk" data-action="show-bulk" hidden>返回批量结果</button>
+            <span class="count-badge" id="results-count">0 题</span>
+          </div>
+        </div>
+        <div class="filters">
+          <label class="field-inline"><span>章节</span><select id="filter-chapter"></select></label>
+          <label class="field-inline"><span>题型</span><select id="filter-type"></select></label>
+          <label class="field-inline"><span>已答</span>
+            <select id="filter-answered">
+              <option value="">全部</option>
+              <option value="yes">已答</option>
+              <option value="no">未答</option>
+            </select>
+          </label>
+          <label class="search"><input type="search" id="search-stem" placeholder="搜索题干…" autocomplete="off"></label>
+        </div>
+        <div class="table-wrap">
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th class="col-idx">#</th>
+                <th class="col-chapter">章节</th>
+                <th class="col-type">题型</th>
+                <th class="col-stem">题干</th>
+                <th class="col-options">选项</th>
+                <th class="col-my">我的答案</th>
+                <th class="col-answer">正确答案</th>
+                <th class="col-source">来源</th>
+                <th class="col-quality">质量 / 适配器</th>
+              </tr>
+            </thead>
+            <tbody id="results-tbody"></tbody>
+          </table>
+        </div>
+        <div class="empty" id="results-empty" hidden>暂无题目结果。完成采集后会自动加载；在地址后加 <code>?demo=1</code> 可预览示例数据。</div>
+        <div class="pager">
+          <button type="button" class="btn btn-sm" id="page-prev" data-action="page-prev">上一页</button>
+          <span id="page-info">第 1 / 1 页</span>
+          <button type="button" class="btn btn-sm" id="page-next" data-action="page-next">下一页</button>
+        </div>
+      </section>
+
+      <section id="card-export" class="card" hidden>
+        <div class="card-head">
+          <div>
+            <h2>导出</h2>
+            <p class="card-sub">结果加载后可用；文件名自动包含课程名与日期。CSV 带 BOM，可直接用 Excel 打开。</p>
+          </div>
+        </div>
+        <div class="export-actions">
+          <button type="button" class="btn" data-export="md-answers" data-action="export-md-answers">Markdown（含答案）</button>
+          <button type="button" class="btn" data-export="md-plain" data-action="export-md-plain">Markdown（不含答案）</button>
+          <button type="button" class="btn" data-export="json" data-action="export-json">JSON</button>
+          <button type="button" class="btn" data-export="csv" data-action="export-csv">CSV（Excel）</button>
+          <label class="check"><input type="checkbox" id="print-with-answers" checked> 打印包含答案</label>
+          <button type="button" class="btn" data-export="print" data-action="export-print">打印视图</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      XXT Copilot v0.1 · 只读工具：不会提交作业、不会自动答题 · 请遵守平台与学校规定
+    </footer>
+  </div>
+
+  <div id="settings-modal" class="modal" hidden>
+    <div class="modal-backdrop" data-action="close-settings"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+      <div class="modal-head">
+        <h2 id="settings-title">采集设置</h2>
+        <button type="button" class="icon-btn" data-action="close-settings" aria-label="关闭设置">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <label class="form-field">
+            <span>最小请求间隔 minDelay（ms）</span>
+            <input type="number" id="set-min-delay" min="0" max="60000" step="50">
+          </label>
+          <label class="form-field">
+            <span>最大请求间隔 maxDelay（ms）</span>
+            <input type="number" id="set-max-delay" min="0" max="60000" step="50">
+          </label>
+          <label class="form-field">
+            <span>单请求超时 timeout（ms）</span>
+            <input type="number" id="set-timeout" min="1000" max="120000" step="1000">
+          </label>
+          <label class="form-field">
+            <span>失败重试 retries（次）</span>
+            <input type="number" id="set-retries" min="0" max="10" step="1">
+          </label>
+          <label class="form-field">
+            <span>单任务最大翻卡数 maxCards（张）</span>
+            <input type="number" id="set-max-cards" min="1" max="500" step="1">
+          </label>
+        </div>
+        <p class="form-hint">设置保存在本机浏览器（chrome.storage.local），并作为「开始采集」时 XXT_START 的默认 options。数值越大请求越慢、越保守。</p>
+        <p class="form-error" id="settings-error" hidden></p>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn" data-action="close-settings">取消</button>
+        <button type="button" class="btn btn-primary" data-action="save-settings">保存设置</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toasts" aria-live="polite" aria-atomic="false"></div>
+
+  <noscript>本页面需要启用 JavaScript 才能使用。</noscript>
+  <script src="export.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

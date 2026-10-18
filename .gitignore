@@ -1,0 +1,23 @@
+# 构建产物
+dist/
+
+# 隐私相关：真实课程页面夹具与内嵌真实内容的测试页，绝不能公开
+tools/fixtures/
+tools/parser-fixture-test.html
+tools/cards-fixture-test.html
+
+# 页面存档 / 导出文件（可能含课程内容与个人信息）
+xxt-snapshot-*.json
+*.snapshot.json
+
+# 扩展打包中间产物
+*.crx
+*.pem
+
+# 本地环境
+.env
+node_modules/
+
+# 操作系统
+Thumbs.db
+.DS_Store
