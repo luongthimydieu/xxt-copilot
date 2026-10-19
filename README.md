@@ -407,7 +407,7 @@ dashboard 需要在一个**已打开的学习通课程标签页**上工作。请
 | --- | --- |
 | [INSTALL.md](INSTALL.md) | Edge / Chrome 安装、更新、卸载、权限说明 |
 | [docs/PUBLISH.md](docs/PUBLISH.md) | 发布到 Edge 加载项 / Chrome 应用商店的完整步骤、政策风险、商店文案与认证说明 |
-| [PRIVACY.md](PRIVACY.md) · [HTML 版](docs/privacy-policy.html) | 隐私政策（已托管：https://luongthimydieu.github.io/xxt-copilot/） |
+| [PRIVACY.md](PRIVACY.md) · [HTML 版](docs/privacy-policy.html) | 隐私政策（已托管：https://jinnn.xyz/xxt-copilot/privacy-policy.html） |
 | [docs/SNAPSHOT.md](docs/SNAPSHOT.md) | 导出页面存档并反馈排障信息 |
 | [docs/QA-CHECKLIST.md](docs/QA-CHECKLIST.md) | 首次真实环境验收清单 |
 | [docs/INTERFACE.md](docs/INTERFACE.md) | 内部接口约定（开发者向） |
