@@ -197,7 +197,7 @@ h2 { margin: 8px 0 10px; font-size: clamp(25px, 3vw, 36px); line-height: 1.22; l
 .checks b { color: var(--text); }
 
 /* ---------- download ---------- */
-.download-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.download-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .dl {
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px;
   display: flex; flex-direction: column; gap: 12px;
